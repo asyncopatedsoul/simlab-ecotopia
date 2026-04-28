@@ -1,0 +1,27 @@
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: light dark;
+  color: #f0f4f0;
+  background: #1a3a2a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+}
+
+.app {
+  text-align: center;
+  padding: 2rem;
+}
+
+.app h1 {
+  font-size: 3rem;
+  margin: 0 0 0.5rem;
+}

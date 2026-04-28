@@ -1,0 +1,7 @@
+dist
+node_modules
+.beads
+.dolt
+*.db
+issues.jsonl
+package-lock.json

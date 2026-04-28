@@ -1,0 +1,10 @@
+import { greet } from '@engine/hello';
+
+export function App() {
+  return (
+    <main className="app">
+      <h1>Biotope</h1>
+      <p>{greet('explorer')}</p>
+    </main>
+  );
+}
