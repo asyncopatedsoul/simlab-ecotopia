@@ -1,0 +1,26 @@
+id,scientific_name,rank,kingdom,class,common_name_en,common_name_es,inat_taxon_id,gbif_taxon_id,scenarios,notes
+1,Turdus migratorius,species,Animalia,Aves,American Robin,Petirrojo Americano,,,window-watch;backyard-bird-hour,Common in lawns and gardens year-round
+2,Passer domesticus,species,Animalia,Aves,House Sparrow,Gorrión Común,,,window-watch;backyard-bird-hour,Ubiquitous in urban LA
+3,Zenaida macroura,species,Animalia,Aves,Mourning Dove,Tórtola Huilota,,,window-watch;backyard-bird-hour,Common visible from windows
+4,Mimus polyglottos,species,Animalia,Aves,Northern Mockingbird,Cenzontle Norteño,,,window-watch;backyard-bird-hour,California state bird; sings day and night
+5,Calypte anna,species,Animalia,Aves,Anna's Hummingbird,Colibrí de Anna,,,window-watch;backyard-bird-hour,Year-round LA resident
+6,Aphelocoma californica,species,Animalia,Aves,California Scrub-Jay,Chara Californiana,,,backyard-bird-hour,Loud and conspicuous backyard regular
+7,Haemorhous mexicanus,species,Animalia,Aves,House Finch,Pinzón Mexicano,,,backyard-bird-hour,Native to the southwest; abundant
+8,Spinus psaltria,species,Animalia,Aves,Lesser Goldfinch,Jilguero Menor,,,backyard-bird-hour,Small flocks at feeders
+9,Corvus brachyrhynchos,species,Animalia,Aves,American Crow,Cuervo Americano,,,backyard-bird-hour,Roosts in large flocks
+10,Sayornis nigricans,species,Animalia,Aves,Black Phoebe,Mosquero Negro,,,backyard-bird-hour;pond-window,Often near water; tail-pumps
+11,Sciurus niger,species,Animalia,Mammalia,Eastern Fox Squirrel,Ardilla Zorra,,,whose-tracks,Introduced; dominant in LA basin
+12,Sciurus griseus,species,Animalia,Mammalia,Western Gray Squirrel,Ardilla Gris Occidental,,,whose-tracks,Native; oak woodlands
+13,Procyon lotor,species,Animalia,Mammalia,Raccoon,Mapache,,,whose-tracks,Nocturnal; tracks easy to find
+14,Mephitis mephitis,species,Animalia,Mammalia,Striped Skunk,Zorrillo Listado,,,whose-tracks,Tracks + scent identifiable
+15,Canis latrans,species,Animalia,Mammalia,Coyote,Coyote,,,whose-tracks,Common in LA hills and parks
+16,Sceloporus occidentalis,species,Animalia,Reptilia,Western Fence Lizard,Bagre Cercana,,,whose-tracks,Visible on rocks and fences
+17,Uta stansburiana,species,Animalia,Reptilia,Common Side-blotched Lizard,Lagartija de Manchas Laterales,,,whose-tracks,Small; quick darts in dry areas
+18,Quercus agrifolia,species,Plantae,,Coast Live Oak,Encino Costero,,,leaf-detective,Iconic LA tree; evergreen
+19,Platanus racemosa,species,Plantae,,California Sycamore,Sicómoro de California,,,leaf-detective,Riparian; large lobed leaves
+20,Heteromeles arbutifolia,species,Plantae,,Toyon,Toyón,,,leaf-detective,Hollywood namesake; red berries
+21,Eschscholzia californica,species,Plantae,,California Poppy,Amapola de California,,,leaf-detective,State flower; spring blooms
+22,Salvia mellifera,species,Plantae,,Black Sage,Salvia Negra,,,leaf-detective,Coastal sage scrub
+23,Fulica americana,species,Animalia,Aves,American Coot,Gallareta Americana,,,pond-window,Common on LA ponds and wetlands
+24,Anas platyrhynchos,species,Animalia,Aves,Mallard,Pato Real,,,pond-window,Most familiar duck
+25,Pseudacris regilla,species,Animalia,Amphibia,Pacific Treefrog,Rana de Coro del Pacífico,,,pond-window,Heard more than seen; small bodies of water

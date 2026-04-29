@@ -1,0 +1,10 @@
+{
+  "pack_id": "la-greater-v1",
+  "pack_version": "0.1.0-stub",
+  "title": "Greater Los Angeles (dev stub)",
+  "license": "CC-BY-4.0",
+  "region": {
+    "name": "Greater Los Angeles",
+    "bbox": { "w": -118.7, "s": 33.7, "e": -117.6, "n": 34.4 }
+  }
+}

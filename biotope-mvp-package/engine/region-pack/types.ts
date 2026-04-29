@@ -116,7 +116,10 @@ export type OccurrenceInput = {
 };
 
 export type RegionPackInput = {
-  meta: Omit<PackMeta, 'stats' | 'manifest_version' | 'schema_version'> & {
+  meta: Omit<
+    PackMeta,
+    'stats' | 'manifest_version' | 'schema_version' | 'generated_at'
+  > & {
     /** If omitted, the builder fills in current time. */
     generated_at?: string;
   };

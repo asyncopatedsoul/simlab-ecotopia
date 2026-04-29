@@ -16,7 +16,8 @@
     "assets:test": "tsx --tsconfig tsconfig.app.json tools/generate-test-assets.ts",
     "bundle:manifest": "tsx --tsconfig tsconfig.app.json tools/build-bundle-manifest.ts",
     "scenario:validate": "tsx --tsconfig tsconfig.app.json tools/biotope-validate.ts",
-    "scenario:new": "tsx --tsconfig tsconfig.app.json tools/create-biotope-scenario.ts"
+    "scenario:new": "tsx --tsconfig tsconfig.app.json tools/create-biotope-scenario.ts",
+    "region-pack:build": "tsx --tsconfig tsconfig.app.json tools/region-pack/build.ts --curation content/region-packs/la-greater-v1/curation.csv --meta content/region-packs/la-greater-v1/meta.json --out content/region-packs/la-greater-v1/built"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
