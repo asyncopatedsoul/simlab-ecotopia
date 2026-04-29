@@ -25,3 +25,52 @@ body {
   font-size: 3rem;
   margin: 0 0 0.5rem;
 }
+
+.permission-explainer {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 14, 0.7);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.permission-explainer__card {
+  max-width: 28rem;
+  width: 100%;
+  background: #f0f4f0;
+  color: #1a3a2a;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.permission-explainer__illustration {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.permission-explainer__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.permission-explainer__actions button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #1a3a2a;
+  background: transparent;
+  color: #1a3a2a;
+  font: inherit;
+  cursor: pointer;
+}
+
+.permission-explainer__actions button[autofocus],
+.permission-explainer__actions button:last-child {
+  background: #1a3a2a;
+  color: #f0f4f0;
+}
