@@ -1,10 +1,12 @@
 export type {
   ActiveScenarioStep,
   ExplainerRenderer,
+  ExplainerShownEventDetail,
   PermissionKind,
   PermissionRequest,
   PermissionResult,
 } from './types';
+export { EXPLAINER_SHOWN_EVENT } from './types';
 export {
   PermissionGateError,
   getActiveScenarioStep,

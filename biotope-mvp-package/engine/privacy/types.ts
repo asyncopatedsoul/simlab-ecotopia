@@ -29,3 +29,14 @@ export type ActiveScenarioStep = {
  * back out — in which case the OS prompt is never shown.
  */
 export type ExplainerRenderer = (req: PermissionRequest) => Promise<'confirm' | 'dismiss'>;
+
+/**
+ * DOM CustomEvent name dispatched by PermissionExplainer when it becomes
+ * visible. bd-priv.3-vo subscribes here to play the parent-narrator VO clip.
+ */
+export const EXPLAINER_SHOWN_EVENT = 'biotope:permission-explainer-shown' as const;
+
+export type ExplainerShownEventDetail = {
+  kind: PermissionKind;
+  ageRung?: PermissionRequest['ageRung'];
+};

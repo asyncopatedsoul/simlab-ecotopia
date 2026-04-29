@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
-import { registerExplainerRenderer } from '@engine/privacy';
-import type { ExplainerRenderer, PermissionKind, PermissionRequest } from '@engine/privacy';
+import { EXPLAINER_SHOWN_EVENT, registerExplainerRenderer } from '@engine/privacy';
+import type {
+  ExplainerRenderer,
+  ExplainerShownEventDetail,
+  PermissionKind,
+  PermissionRequest,
+} from '@engine/privacy';
 
 type PendingRequest = {
   request: PermissionRequest;
@@ -69,9 +74,17 @@ export function PermissionExplainer() {
   }, []);
 
   // Trigger the entry transition on the next paint after pending is set.
+  // Also dispatch the VO hook event so bd-priv.3-vo can play the narrator clip.
   useEffect(() => {
     if (pending) {
-      const id = requestAnimationFrame(() => setVisible(true));
+      const id = requestAnimationFrame(() => {
+        setVisible(true);
+        window.dispatchEvent(
+          new CustomEvent<ExplainerShownEventDetail>(EXPLAINER_SHOWN_EVENT, {
+            detail: { kind: pending.request.kind, ageRung: pending.request.ageRung },
+          }),
+        );
+      });
       return () => cancelAnimationFrame(id);
     }
     setVisible(false);

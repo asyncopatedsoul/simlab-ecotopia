@@ -1,0 +1,148 @@
+manifest_version: 1
+id: "window-watch"
+title: "Window Watch"
+version: "1.0.0"
+authors:
+  - name: "Biotope Team"
+license: "CC-BY-SA-4.0"
+language_default: "en"
+languages_available: ["en"]
+
+audience:
+  age_rungs: ["5-6", "7-8", "9-10", "11-12"]
+  default_rung: "7-8"
+  modes:
+    - "mentor_apprentice"
+    - "solo"
+  reading_level:
+    "5-6": "pre_reader"
+    "7-8": "early_reader"
+    "9-10": "fluent_simple"
+    "11-12": "fluent"
+
+locality:
+  biome_any: true
+  season_any: true
+
+estimated_minutes:
+  "5-6": 8
+  "7-8": 8
+  "9-10": 12
+  "11-12": 12
+
+hardware:
+  camera: optional
+  microphone: unused
+  gps: unused
+  accelerometer: unused
+
+permissions_explainer:
+  camera: "permissions.camera"
+
+content:
+  species_pack: "species.json"
+  region_pack: "region/"
+  narrative: "narrative/en.ink"
+
+loop:
+
+  brief:
+    duration_seconds_target: 60
+    narrative_node: "brief.start"
+    voice_over: false
+    skill_rung_overrides:
+      "5-6":
+        narrative_node: "brief.start_5_6"
+        duration_seconds_target: 30
+
+  sim_episode:
+    type: "3d_scene"
+    scene: "scenes/window.glb"
+    duration_seconds_target: 180
+    interactions:
+      - id: "tap_bird_card"
+        targets_from_species: ["american-robin", "house-sparrow", "annas-hummingbird"]
+        per_target_max_seconds: 60
+        on_complete: "sim.done"
+    skill_rung_overrides:
+      "5-6":
+        targets_from_species: ["american-robin", "house-sparrow"]
+      "9-10":
+        add_call_recognition: true
+      "11-12":
+        add_call_recognition: true
+
+  field_activity:
+    type: "photo_observation"
+    duration_minutes_target: 2
+    instruction_node: "field.instruction"
+    completion:
+      requires_photo: false
+      photo_subject_hint: "any"
+      offline_capable: true
+      species_recognition:
+        attempt: false
+        require_correct: false
+    safety:
+      adult_present_required:
+        "5-6": true
+        "7-8": true
+        "9-10": false
+        "11-12": false
+      max_distance_from_origin_m:
+        "5-6": 0
+        "7-8": 0
+        "9-10": 0
+        "11-12": 0
+      time_limit_minutes: 5
+    fallback_indoor:
+      narrative_node: "field.indoor_fallback"
+
+  re_encoding:
+    accept:
+      - kind: "self_reported_id"
+        from_species_pack: true
+    sim_response:
+      action: "place_player_observation_in_scene"
+      narrative_node: "encode.success"
+      on_no_observation: "encode.encouragement"
+
+  reflection:
+    duration_seconds_target: 60
+    narrative_node: "reflection.start"
+    prompts:
+      - kind: "favorite"
+    unlocks:
+      next_scenario: "backyard-bird-hour"
+
+mentor_apprentice:
+  parent_seat:
+    overlay_during: ["sim_episode", "field_activity"]
+    can_pause: true
+    can_explain: true
+    coaching_prompts:
+      sim_episode: "parent_hints.during_sim"
+      field_activity: "parent_hints.during_field"
+    photo_gate: true
+  child_seat:
+    can_solo_during: ["reflection"]
+
+privacy:
+  photo_storage: "local_only_default"
+  voice_input: "off_by_default"
+  location_obscure: true
+  share_button_visible:
+    "5-6": false
+    "7-8": false
+    "9-10": "with_parent_confirm"
+    "11-12": "with_parent_confirm"
+
+assets:
+  total_size_max_mb: 15
+  bundles:
+    - path: "scenes/window.glb"
+      size_kb: 1
+    - path: "narrative/en.ink"
+      size_kb: 1
+    - path: "species.json"
+      size_kb: 1

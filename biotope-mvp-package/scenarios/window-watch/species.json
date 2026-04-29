@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "scenario_id": "window-watch",
+  "species": [
+    {
+      "id": "american-robin",
+      "taxon_id": 1,
+      "scientific_name": "Turdus migratorius",
+      "common_name": "American Robin",
+      "sim_asset": "bird-card-robin"
+    },
+    {
+      "id": "house-sparrow",
+      "taxon_id": 2,
+      "scientific_name": "Passer domesticus",
+      "common_name": "House Sparrow",
+      "sim_asset": "bird-card-sparrow"
+    },
+    {
+      "id": "annas-hummingbird",
+      "taxon_id": 5,
+      "scientific_name": "Calypte anna",
+      "common_name": "Anna's Hummingbird",
+      "sim_asset": "bird-card-hummingbird"
+    }
+  ]
+}

@@ -1,10 +1,15 @@
-import { Suspense, lazy, useMemo } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { greet } from '@engine/hello';
 import type { AgeRung, Mode } from '@engine/manifest';
-import { createKvStore } from '@engine/storage';
+import { createBlobStore, createKvStore } from '@engine/storage';
+import { createDataDeletion } from '@engine/dataDeletion';
+import { createNoopEmailTransport, createParentVerification } from '@engine/parentVerification';
+import type { DataDeletion } from '@engine/dataDeletion';
+import type { ParentVerification } from '@engine/parentVerification';
 import { createFetchScenarioSource } from '@engine/scenario';
 import { PermissionExplainer } from '@app/components/PermissionExplainer';
 import { InstallPrompt } from '@app/components/InstallPrompt';
+import { Settings } from '@app/components/Settings';
 import { ScenarioPlayer } from '@app/scenarioPlayer';
 
 const TestSceneStage = lazy(() =>
@@ -31,6 +36,10 @@ export function App() {
   const scenarioId = params.get('scenario');
   if (scenarioId) {
     return <ScenarioRoute scenarioId={scenarioId} params={params} />;
+  }
+
+  if (params.has('settings')) {
+    return <SettingsRoute />;
   }
 
   return <DefaultLanding />;
@@ -69,6 +78,40 @@ function ScenarioRoute({
         source={source}
         kv={kv}
       />
+      <PermissionExplainer />
+    </>
+  );
+}
+
+type SettingsServices = {
+  dataDeletion: DataDeletion;
+  parentVerification: ParentVerification;
+};
+
+function SettingsRoute() {
+  const [services, setServices] = useState<SettingsServices | null>(null);
+
+  useEffect(() => {
+    const kv = createKvStore('biotope-kv');
+    void (async () => {
+      const blobs = await createBlobStore();
+      setServices({
+        dataDeletion: createDataDeletion({ kv, blobs }),
+        parentVerification: createParentVerification({
+          kv,
+          transport: createNoopEmailTransport(),
+        }),
+      });
+    })();
+  }, []);
+
+  if (!services) {
+    return <main className="app"><p>Loading…</p></main>;
+  }
+
+  return (
+    <>
+      <Settings dataDeletion={services.dataDeletion} parentVerification={services.parentVerification} />
       <PermissionExplainer />
     </>
   );
