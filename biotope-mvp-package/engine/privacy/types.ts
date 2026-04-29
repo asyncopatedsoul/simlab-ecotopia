@@ -10,6 +10,12 @@ export type PermissionRequest = {
   copy: string;
   /** Optional: bounded distance in meters for geolocation steps. Required for `geolocation`. */
   distanceBoundMeters?: number;
+  /**
+   * Optional age rung. When set, the explainer overlay can pick an
+   * age-appropriate copy variant + illustration size (bd-priv.3). When
+   * absent, the overlay renders the default variant.
+   */
+  ageRung?: '5-6' | '7-8' | '9-10' | '11-12';
 };
 
 export type ActiveScenarioStep = {
