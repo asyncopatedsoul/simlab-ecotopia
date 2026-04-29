@@ -13,7 +13,8 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "assets:test": "tsx tools/generate-test-assets.ts"
+    "assets:test": "tsx tools/generate-test-assets.ts",
+    "bundle:manifest": "tsx tools/build-bundle-manifest.ts"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
