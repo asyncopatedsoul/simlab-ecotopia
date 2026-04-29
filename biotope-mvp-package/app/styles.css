@@ -26,6 +26,25 @@ body {
   margin: 0 0 0.5rem;
 }
 
+.install-prompt {
+  margin-top: 2rem;
+}
+
+.install-prompt__button {
+  font: inherit;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: none;
+  background: #7fb085;
+  color: #1a3a2a;
+  cursor: pointer;
+}
+
+.install-prompt__hint {
+  margin-top: 1rem;
+  opacity: 0.85;
+}
+
 .permission-explainer {
   position: fixed;
   inset: 0;
