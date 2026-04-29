@@ -15,7 +15,8 @@
     "test:watch": "vitest",
     "assets:test": "tsx --tsconfig tsconfig.app.json tools/generate-test-assets.ts",
     "bundle:manifest": "tsx --tsconfig tsconfig.app.json tools/build-bundle-manifest.ts",
-    "scenario:validate": "tsx --tsconfig tsconfig.app.json tools/biotope-validate.ts"
+    "scenario:validate": "tsx --tsconfig tsconfig.app.json tools/biotope-validate.ts",
+    "scenario:new": "tsx --tsconfig tsconfig.app.json tools/create-biotope-scenario.ts"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
