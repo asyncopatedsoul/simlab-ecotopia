@@ -143,6 +143,6 @@ assets:
     - path: "scenes/window.glb"
       size_kb: 1
     - path: "narrative/en.ink"
-      size_kb: 1
+      size_kb: 1.5
     - path: "species.json"
-      size_kb: 1
+      size_kb: 0.65
