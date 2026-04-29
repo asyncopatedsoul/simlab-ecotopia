@@ -1,0 +1,169 @@
+# Fixture: full Backyard Bird Hour manifest example from
+# docs/biotope-mvp-planning.md §2 ("The template"). bd-rntm.1 acceptance:
+# this fixture must parse without errors and round-trip stably.
+
+manifest_version: 1
+id: "backyard-bird-hour"
+title: "Backyard Bird Hour"
+version: "1.0.0"
+authors:
+  - name: "Author Name"
+    contact: "author@example.org"
+license: "CC-BY-SA-4.0"
+language_default: "en"
+languages_available: ["en"]
+
+audience:
+  age_rungs: ["5-6", "7-8", "9-10", "11-12"]
+  default_rung: "7-8"
+  modes:
+    - "mentor_apprentice"
+    - "solo"
+  reading_level:
+    "5-6": "pre_reader"
+    "7-8": "early_reader"
+    "9-10": "fluent_simple"
+    "11-12": "fluent"
+
+locality:
+  biome_any: true
+  biome_preferred: ["temperate_residential", "urban_park"]
+  season_any: true
+  season_preferred: ["spring", "summer", "fall"]
+  daypart: ["morning", "midday", "afternoon"]
+  weather_unsuitable: ["heavy_rain", "lightning", "extreme_heat"]
+
+estimated_minutes:
+  "5-6": 10
+  "7-8": 15
+  "9-10": 20
+  "11-12": 25
+
+hardware:
+  camera: "required_for_field"
+  microphone: "optional"
+  gps: "optional"
+  accelerometer: "unused"
+
+permissions_explainer:
+  camera: "narrative/permissions/camera"
+  gps: "narrative/permissions/gps"
+
+content:
+  species_pack: "species.json"
+  region_pack: "../../region-packs/local-birds-v2/"
+  narrative: "narrative/en.ink"
+
+loop:
+  brief:
+    duration_seconds_target: 60
+    narrative_node: "brief.start"
+    voice_over: true
+    skill_rung_overrides:
+      "5-6":
+        duration_seconds_target: 30
+        narrative_node: "brief.start_5_6"
+      "11-12":
+        duration_seconds_target: 90
+
+  sim_episode:
+    type: "3d_scene"
+    scene: "scenes/backyard_morning.glb"
+    duration_seconds_target: 300
+    interactions:
+      - id: "tap_to_learn"
+        targets_from_species: ["robin", "house_sparrow", "blue_jay"]
+        per_target_max_seconds: 60
+        on_complete: "narrative.sim_complete"
+    skill_rung_overrides:
+      "5-6":
+        targets_from_species: ["robin", "house_sparrow"]
+      "9-10":
+        add_call_recognition: true
+      "11-12":
+        add_call_recognition: true
+        require_predict_before_show: true
+
+  field_activity:
+    type: "photo_observation"
+    duration_minutes_target: 10
+    instruction_node: "field.instruction"
+    completion:
+      requires_photo: true
+      photo_subject_hint: "any_bird"
+      offline_capable: true
+      species_recognition:
+        attempt: true
+        require_correct: false
+    safety:
+      adult_present_required:
+        "5-6": true
+        "7-8": true
+        "9-10": false
+        "11-12": false
+      max_distance_from_origin_m:
+        "5-6": 20
+        "7-8": 50
+        "9-10": 200
+        "11-12": 500
+      time_limit_minutes: 30
+    fallback_indoor:
+      narrative_node: "field.indoor_fallback"
+
+  re_encoding:
+    accept:
+      - kind: "photo"
+        subject: "bird"
+        confidence_min: 0.4
+      - kind: "self_reported_id"
+        from_species_pack: true
+    sim_response:
+      action: "place_player_observation_in_scene"
+      narrative_node: "encode.success"
+      on_no_observation: "encode.encouragement"
+
+  reflection:
+    duration_seconds_target: 60
+    narrative_node: "reflection.start"
+    prompts:
+      - kind: "favorite_of_encountered"
+      - kind: "where_seen"
+        rungs: ["9-10", "11-12"]
+    unlocks:
+      next_scenario: "whose-tracks"
+
+mentor_apprentice:
+  parent_seat:
+    overlay_during: ["sim_episode", "field_activity"]
+    can_pause: true
+    can_explain: true
+    coaching_prompts:
+      sim_episode: "narrative.parent_hints_sim"
+      field_activity: "narrative.parent_hints_field"
+    photo_gate: true
+  child_seat:
+    can_solo_during: ["reflection"]
+
+privacy:
+  photo_storage: "local_only_default"
+  voice_input: "off_by_default"
+  location_obscure: true
+  share_button_visible:
+    "5-6": false
+    "7-8": false
+    "9-10": "with_parent_confirm"
+    "11-12": "with_parent_confirm"
+
+assets:
+  total_size_max_mb: 30
+  bundles:
+    - path: "scenes/backyard_morning.glb"
+      size_kb: 4200
+    - path: "audio/vo/en/*.ogg"
+      size_kb: 1800
+    - path: "audio/birds/*.ogg"
+      size_kb: 900
+    - path: "images/birds/*.webp"
+      size_kb: 350
+    - path: "narrative/en.ink"
+      size_kb: 12
