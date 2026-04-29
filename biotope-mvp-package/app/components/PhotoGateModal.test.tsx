@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createKvStore } from '@engine/storage/kv';
 import { createPhotoGate, type GateContext } from '@engine/photoGate';
@@ -80,7 +80,9 @@ describe('<PhotoGateModal>', () => {
     const confirmedSpy = vi.fn();
     gate.onConfirmed(confirmedSpy);
     await user.click(screen.getByRole('button', { name: 'Save photo' }));
-    expect(confirmedSpy).toHaveBeenCalledOnce();
+    // The modal's onClick handler is async; userEvent.click only awaits the
+    // synchronous part. Wait for the confirm to actually flow through.
+    await waitFor(() => expect(confirmedSpy).toHaveBeenCalledOnce());
     // Blob still in OPFS.
     expect(blobs.map.has(path)).toBe(true);
   });
@@ -108,6 +110,6 @@ describe('<PhotoGateModal>', () => {
 
     await screen.findByRole('dialog');
     await user.click(screen.getByRole('button', { name: 'Discard' }));
-    expect(blobs.map.has(path)).toBe(false);
+    await waitFor(() => expect(blobs.map.has(path)).toBe(false));
   });
 });

@@ -1,0 +1,35 @@
+# {{title}}
+
+Scaffolded by `create-biotope-scenario`. The manifest, narrative, and asset
+folders are ready to author against. Run the validator after edits:
+
+```bash
+npm run scenario:validate -- .
+```
+
+## Layout
+
+```
+{{slug}}/
+  manifest.yaml         # bd-rntm.1 schema; this is the contract
+  narrative/
+    en.ink              # English narrative; every node referenced from
+                        # manifest must exist here
+  scenes/
+    main.glb            # 3D scene (placeholder; replace with your asset)
+  species/              # scenario-local species pack data
+  species.json
+  region/               # references to a shared region pack
+```
+
+## Authoring loop
+
+1. Edit `manifest.yaml` and `narrative/en.ink` together. Every
+   `narrative_node` you add to the manifest needs a matching knot/stitch
+   in the .ink file.
+2. Replace `scenes/main.glb` with your real Draco-compressed +
+   KTX2-textured glTF.
+3. `npm run scenario:validate -- .`
+4. Iterate.
+
+See `docs/biotope-mvp-planning.md` §2 for the full manifest spec.
