@@ -59,6 +59,89 @@ bd update bd-plat.1 --claim   # claim it (sets status=in_progress, assigns to yo
 
 The seed graph naturally surfaces `bd-plat.1` (Vite + React + TS scaffold) and `bd-priv.1` (privacy policy) as the first ready tasks — both are P0 with no blockers.
 
+## Developer setup
+
+Once `bd-plat.1` is in (it is — Vite + React + TS scaffold lives at the repo root), here's how to run, build, and deploy.
+
+### Prerequisites
+
+- Node.js **≥ 20.19** (tested on 22.15)
+- npm **≥ 10**
+
+### Install
+
+```bash
+npm install
+```
+
+### Run locally
+
+```bash
+npm run dev          # Vite dev server on http://localhost:5173 (cold boot ~120ms)
+```
+
+Hot-module reload is on. Vite serves TS/TSX directly — no build step in dev.
+
+### Quality gates
+
+```bash
+npm run typecheck    # tsc -b --noEmit; strict mode, must be zero errors
+npm run lint         # ESLint flat config (typescript-eslint + react-hooks)
+npm run format       # Prettier write
+npm run format:check # Prettier check (CI-friendly)
+```
+
+Run all four before closing any code-touching issue. They're cheap and catch the obvious stuff.
+
+### Build
+
+```bash
+npm run build        # tsc -b && vite build → dist/
+npm run preview      # serve dist/ on http://localhost:4173 to smoke-test the bundle
+```
+
+Output is a static SPA in `dist/` — `index.html` plus hashed `assets/`. Nothing else needs to run; no backend.
+
+### Path aliases
+
+The workspace dirs are wired through `tsconfig.app.json` + `vite-tsconfig-paths`:
+
+| Alias | Path | Use |
+|---|---|---|
+| `@app/*` | `app/*` | UI / React components / screens |
+| `@engine/*` | `engine/*` | Rendering, runtime, asset loader |
+| `@content/*` | `content/*` | Scenario manifests + content data |
+| `@tools/*` | `tools/*` | CLI authoring tools (Node, not bundled) |
+
+Import like `import { greet } from '@engine/hello'`, not relative paths across workspaces.
+
+### Deploy
+
+**Today (scaffold state):** `npm run build` produces a static SPA. Any static host works — Cloudflare Pages, Netlify, Vercel, S3+CloudFront, GitHub Pages. SPA fallback (rewrite all unknown paths to `/index.html`) is required.
+
+Quick local-equivalent deploys:
+
+```bash
+# Cloudflare Pages (one-shot direct upload, no Git wiring)
+npx wrangler pages deploy dist --project-name biotope
+
+# Netlify (one-shot)
+npx netlify deploy --dir=dist --prod
+```
+
+**MVP target:** Cloudflare Pages or Netlify fronting `biotope.app`, with the PWA installable on iOS Safari and Android Chrome. That work is tracked separately:
+
+- `bd-plat.2` — PWA manifest + service worker (offline-first, asset precache)
+- `bd-dist.3` — host wiring at biotope.app, Lighthouse PWA score >90
+- `bd-plat.3` — Capacitor wrappers for iOS/Android store distribution
+- `bd-dist.1` / `bd-dist.2` — App Store (Kids Category) + Play (Designed for Families) submissions
+
+Don't add SW / Capacitor / store config ad-hoc — pick up the corresponding `bd` issue and follow its acceptance criteria.
+
+### Privacy posture (non-negotiable)
+
+Per `CLAUDE.md` and `AGENTS.md`: no third-party analytics, no telemetry by default, no data leaves device unless explicitly required. If a deploy-side change (CDN logs, edge analytics, error reporting SaaS) would touch user data, stop and file an issue before wiring it.
+
 ## Project at a glance
 
 - **Audience:** parent + child, ages 5-12. Lifelong-learning vision extends to age 50, but MVP is focused.
