@@ -13,8 +13,9 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "assets:test": "tsx tools/generate-test-assets.ts",
-    "bundle:manifest": "tsx tools/build-bundle-manifest.ts"
+    "assets:test": "tsx --tsconfig tsconfig.app.json tools/generate-test-assets.ts",
+    "bundle:manifest": "tsx --tsconfig tsconfig.app.json tools/build-bundle-manifest.ts",
+    "scenario:validate": "tsx --tsconfig tsconfig.app.json tools/biotope-validate.ts"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
@@ -24,6 +25,7 @@
     "inkjs": "^2.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "sql.js": "^1.14.1",
     "sqlocal": "^0.18.0",
     "three": "^0.169.0",
     "three-stdlib": "^2.36.1",
@@ -42,6 +44,7 @@
     "@types/node": "^22.19.17",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/sql.js": "^1.4.11",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
     "@vite-pwa/assets-generator": "^0.2.6",
